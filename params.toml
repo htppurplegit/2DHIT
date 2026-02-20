@@ -1,0 +1,33 @@
+# =============================================================================
+# 2D Pseudo-Spectral HIT — Parameters
+# =============================================================================
+
+[simulation]
+N      = 256        # Grid points per side (power of 2: 128 / 256 / 512)
+L      = 6.2831853  # Domain length = 2π
+nu     = 1.0e-4     # Kinematic viscosity
+T      = 30.0       # Simulation end time
+t_out  = 0.5        # Output interval (time units between console diagnostics)
+seed   = 42         # Random seed (0 = non-reproducible)
+CFL    = 0.5        # CFL safety factor for adaptive dt
+dt_max = 1.0e-3     # Maximum allowed dt
+dt_min = 1.0e-8     # Minimum allowed dt (warning printed if reached)
+
+[initial_conditions]
+k0 = 4.0    # Peak wavenumber of initial energy spectrum E(k) ~ k³ exp(−2(k/k0)²)
+E0 = 0.5    # Target initial kinetic energy
+
+[forcing]
+# Negative-damping: injects energy at rate eps_f [energy/time] in band [k_lo, k_hi]
+#   f̂(k) = eps_f / (2 E_band) · mask(k) · ω̂(k)
+k_lo  = 3.0    # Lower bound of forcing wavenumber band
+k_hi  = 5.0    # Upper bound of forcing wavenumber band
+eps_f = 0.1    # Energy injection rate [energy/time]
+
+[checkpoint]
+enabled  = true
+interval = 2.0   # Save a checkpoint every this many time units
+restart  = ""    # Path to .npz restart file (empty = fresh start)
+
+[output]
+results_dir = "results"
