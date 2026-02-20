@@ -4,15 +4,15 @@
 ==============================
 Solves the 2D incompressible Navier-Stokes equation in vorticity form:
 
-    dω/dt + u·∇ω = ν∇²ω + f
+    dw/dt + u·grad w = ν grad^2 w + f
 
-Velocity is recovered from the streamfunction ψ:
-    u = ∂ψ/∂y,  v = −∂ψ/∂x,  ω = −∇²ψ
+Velocity is recovered from the streamfunction phi:
+    u = d phi/dy,  v = −d phi/dx,  w = −grad^2 phi
 
 Forcing: negative-damping — injects energy at a fixed rate eps_f
          into spectral modes in the band [k_lo, k_hi].
 
-    f̂(k) = (eps_f / 2 E_band) · mask(k) · ω̂(k)
+    ^f(k) = (eps_f / 2 E_band) · mask(k) · ^omega(k)
 
 Spatial discretisation : pseudo-spectral (FFT), 2/3-rule dealiasing
 Time integration       : 4th-order Runge-Kutta, CFL-adaptive dt
